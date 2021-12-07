@@ -39,7 +39,7 @@ div.wrapper{display:block; width:100%; margin:0; padding:0; text-align:left;}
 
 nav ul{margin:0; padding:0; list-style:none;}
 
-h1, h2, h3, h4, h5, h6{margin:0; padding:0; font-size:32px; font-weight:normal; font-style:italic; line-height:normal;}
+h1, h3, h4, h5, h6{margin:0; padding:0; font-size:32px; font-weight:normal; font-style:italic; line-height:normal;}
 
 address{font-style:normal;}
 
@@ -90,6 +90,13 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 
 /* ------Main Content-----*/
 
+.title{
+    text-align: center;
+    padding: 3px;
+    font-size: 25px;
+    background-image: url("../images/demo/naturebackground.jpg")
+}
+
 #container #homepage{display:block; width:100%; line-height:1.8em;}
 
 #container #homepage #services{}
@@ -107,6 +114,52 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 #container #homepage #intro article figure figcaption{float:left; width:460px;}
 #container #homepage #intro article figure h2{}
 #container #homepage #intro article figure footer{}
+
+/*----------------------------------------------Image Grid-------------------------------------*/
+.image-grid {
+  --gap: 16px;
+  --num-cols: 4;
+  --row-height: 300px;
+
+  box-sizing: border-box;
+  padding: var(--gap);
+
+  display: grid;
+  grid-template-columns: repeat(var(--num-cols), 1fr);
+  grid-auto-rows: var(--row-height);
+  gap: var(--gap);
+}
+
+.image-grid > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-grid-col-2 {
+  grid-column: span 2;
+}
+
+.image-grid-row-2 {
+  grid-row: span 2;
+}
+
+/* Anything udner 1024px */
+@media screen and (max-width: 1024px) {
+  .image-grid {
+    --num-cols: 2;
+    --row-height: 200px;
+    
+  }
+}
+.thumbnail:hover {
+    transform: scale(1.2);
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease; /*Got these transitions from https://www.codegrepper.com/code-examples/css/how+to+slow+down+hover+effect+css */
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
 
 /*----------------------------------------------Footer-------------------------------------*/
 
