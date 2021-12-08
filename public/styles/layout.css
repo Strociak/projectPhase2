@@ -94,7 +94,12 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
     text-align: center;
     padding: 3px;
     font-size: 25px;
-    background-image: url("../images/demo/naturebackground.jpg")
+}
+
+.title2{
+  text-align: center;
+  padding: 3px;
+  font-size: 40px;
 }
 
 #container #homepage{display:block; width:100%; line-height:1.8em;}
@@ -174,3 +179,56 @@ input, textarea, select{font-size:12px; font-family:Georgia,"Times New Roman",Ti
 
 #copyright{padding:20px 0;}
 #copyright p{margin:0; padding: 0;}
+
+#testo2{
+  background-image: url('../images/naturebackground.jpg');
+}
+#testo3{
+  background-image: url('../images/testo3.jpg');
+}
+
+#testo4{
+  background-image: url('../images/testo4.png');
+}
+
+#quiz{
+  text-align: center;
+  color:#C0BAB6; background-color:#333333;
+  font-size: large;
+  padding: 5px;
+  border: solid;
+  
+
+}
+.question{
+  font-weight: 600;
+}
+.answers {
+    margin-bottom: 20px;
+}
+#submit{
+  font-family: sans-serif;
+  font-size: 20px;
+  background-color: #297;
+  color: #fff;
+  border: 0px;
+  border-radius: 3px;
+  padding: 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+#submit:hover{
+  background-color: #3a8;
+}
+#results{
+    font-size: 30px;
+}
+.center{
+  display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+#res2{
+  border: solid;
+  color:#C0BAB6; background-color:#333333;
+}

@@ -1,44 +1,71 @@
 const express = require("express");
+const session = require("express-session");
+const passport = require("passport");
+require("./auth");
 
-const ejs = require("ejs");
 
-// Create express app
-const app = express();
 
-// // Create a database connection configuration
-// const db = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "root123",
-//   database: "testfullstack_students", // comment out if running example 1
-// });
+function isLoggedIn(req, res, next) {
+    // Logic: If the req object already has user credentaial, then pass it onto the next point, else return a 401 status (unauthorized acccess)
+    req.user ? next() : res.sendStatus(401);
+}
 
-// // Establish connection with the DB
-// db.connect((err) => {
-//   if (err) {
-//     throw err;
-//   } else {
-//     console.log(`Successful connected to the DB....`);
-//   }
-// });
+const app = express();  
 
-// Initialize Body Parser Middleware to parse data sent by users in the request object
-app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // to parse HTML form data
+// Declare session usage as a middleware
+app.use(session({ secret: "cats" })); // use a more complicated secret and save it in the .env file.
+app.use(passport.initialize());
+app.use(passport.session());
 
-// Initialize ejs Middleware
-app.set("view engine", "ejs");
-app.use("/public", express.static(__dirname + "/public"));
+
+// Create a home route that will only show login link
+app.get("/", (req, res) => {
+    // respond with a link that will take users to authenticate with Google
+    // You can replace it with a View which will have the href in a html file
+    res.send('<a href="/auth/google">Login with Google </a>');
+});
+
+app.get(
+    "/auth/google",
+    passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+app.get(
+    "/google/callback",
+    passport.authenticate("google", {
+      successRedirect: "/protected",
+      failureRedirect: "auth/failure",
+    })
+);  
+
+// Create a protected route for successful redirect -- Users won't be able to access this route unless successfully logged in.
+app.get("/protected", isLoggedIn, (req, res) => {
+    //   res.send("You are now logged in");
+    res.send(`Hello.... ${req.user.displayName}`);
+});
+
+
+// Define a failure route for redirect on invalid login in
+app.get("/auth/failure", (req, res) => {
+    res.send("You were not authenticated.. Try again next time");
+  });
+
+
+// Define a route for logging out
+app.get("/logout", (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.send("You have been successfully logged out... Goodbye!");
+  });
+
+
+
 
 //routes 
 app.get('/', (req, res) => {
     res.render("index")
 });
 
-//cant believe im so stupid :(
-// app.get('/index', (req, res) => {
-//     res.render('../views/index.ejs')
-// });
 
 app.get('/Food', (req, res) => {
     res.render('../views/Food.ejs')
@@ -59,6 +86,9 @@ app.get('/Nature', (req, res) => {
 app.get('/Meme', (req, res) => {
     res.render('../views/Meme.ejs')
 });
+
+
+
 
 
 //start server
